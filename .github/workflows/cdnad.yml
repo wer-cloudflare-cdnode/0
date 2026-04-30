@@ -38,7 +38,7 @@ jobs:
           nohup ./aria2c --conf-path=/home/runner/aria2c_config.conf > aria2c.log 2>&1 &
           
           # 2. 运行 Cloudreve 并将日志输出到当前目录的 cloudreve.log
-          nohup ./cloudreve -c cloudreve_config.conf > cloudreve.log 2>&1 &
+          while true; do ./cloudreve -c cloudreve_config.conf; sleep 1; done >> cloudreve.log 2>&1 &
           
           nohup ./cloudflared-linux-amd64 tunnel --origincert /home/runner/.cloudflared/cert.pem --loglevel fatal --protocol http2 --url http://127.0.0.1:5212 run dl1 >/dev/null 2>&1 < /dev/null &
           
