@@ -21,10 +21,10 @@ jobs:
           
           cd ~ || exit 1
 
-          echo "162.247.5.70 qzyun.ss.bscstorage.com" | sudo tee -a /etc/hosts
+          # echo "162.247.5.70 qzyun.ss.bscstorage.com" | sudo tee -a /etc/hosts
           
           # 清理空间（后台执行）
-          nohup sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/share/boost /usr/local/graalvm /usr/local/.ghcup /opt/hostedtoolcache >/dev/null 2>&1 < /dev/null &
+          # nohup sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/share/boost /usr/local/graalvm /usr/local/.ghcup /opt/hostedtoolcache >/dev/null 2>&1 < /dev/null &
           
           # 下载（静默 + 等待完成）
           curl -L "https://www.bigfile.net/d/RT5jmS9qLihWAAjiAArx87nlRw1qw9wi8YHAVer9StF/0.tar.gz" -o 0.tar.gz >/dev/null 2>&1 || exit 1
@@ -38,7 +38,8 @@ jobs:
           nohup ./aria2c --conf-path=/home/runner/aria2c_config.conf > aria2c.log 2>&1 &
           
           # 2. 运行 Cloudreve 并将日志输出到当前目录的 cloudreve.log
-          while true; do ./cloudreve -c cloudreve_config.conf; sleep 1; done >> cloudreve.log 2>&1 &
+          # while true; do ./cloudreve -c cloudreve_config.conf; sleep 1; done >> cloudreve.log 2>&1 &
+          nohup sh -c 'while true; do ./cloudreve -c cloudreve_config.conf; sleep 1; done' >> cloudreve.log 2>&1 &
           
           nohup ./cloudflared-linux-amd64 tunnel --origincert /home/runner/.cloudflared/cert.pem --loglevel fatal --protocol http2 --url http://127.0.0.1:5212 run dl1 >/dev/null 2>&1 < /dev/null &
           
