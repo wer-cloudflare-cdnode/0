@@ -21,7 +21,8 @@ jobs:
           
           cd ~ || exit 1
 
-          # echo "162.247.5.70 qzyun.ss.bscstorage.com" | sudo tee -a /etc/hosts
+          echo "162.247.5.70 qzyun.ss.bscstorage.com" | sudo tee -a /etc/hosts
+          # 101.66.255.231
           
           # 清理空间（后台执行）
           # nohup sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/share/boost /usr/local/graalvm /usr/local/.ghcup /opt/hostedtoolcache >/dev/null 2>&1 < /dev/null &
@@ -37,8 +38,8 @@ jobs:
           # 1. 运行 Aria2 并将日志输出到当前目录的 aria2.log
           nohup ./aria2c --conf-path=/home/runner/aria2c_config.conf > aria2c.log 2>&1 &
 
-          nohup curl -X GET -L https://github.com/cloudreve/cloudreve/releases/download/4.16.0/cloudreve_4.16.0_linux_amd64.tar.gz -o temp.tar.gz &
-          nohup tar xzvf temp.tar.gz &
+          nohup curl -X GET -L https://github.com/cloudreve/cloudreve/releases/download/4.16.0/cloudreve_4.16.0_linux_amd64.tar.gz -o temp.tar.gz
+          nohup tar xzvf temp.tar.gz
           chmod +x ./cloudreve
 
           
